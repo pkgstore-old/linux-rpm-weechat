@@ -145,7 +145,6 @@ find doc/ -type f -name 'CMakeLists.txt' \
 %{_datadir}/icons/hicolor/256x256/apps/%{name}.png
 %{_datadir}/icons/hicolor/512x512/apps/%{name}.png
 %{_datadir}/icons/hicolor/64x64/apps/%{name}.png
-%if 0%{?fedora} || 0%{?rhel} < 8
 %{_pkgdocdir}/weechat_*.html
 %{_mandir}/man1/weechat.1*
 %{_mandir}/cs/man1/weechat.1*
@@ -157,7 +156,6 @@ find doc/ -type f -name 'CMakeLists.txt' \
 %{_mandir}/ru/man1/weechat.1*
 %{_mandir}/man1/%{name}-headless.1*
 %{_mandir}/*/man1/%{name}-headless.1*
-%endif
 
 
 %files devel
