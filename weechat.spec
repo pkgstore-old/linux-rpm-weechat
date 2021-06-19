@@ -23,7 +23,7 @@ URL:                            https://weechat.org
 Vendor:                         Package Store <https://pkgstore.github.io>
 Packager:                       Kitsune Solar <kitsune.solar@gmail.com>
 
-Source0:                        https://weechat.org/files/src/%{name}-%{version}.tar.xz
+Source0:                         https://weechat.org/files/src/%{name}-%{version}.tar.xz
 # Signature
 Source900:                      https://weechat.org/files/src/%{name}-%{version}.tar.xz.asc
 
@@ -67,6 +67,9 @@ BuildRequires:                  v8-devel
 %endif
 %endif
 BuildRequires:                  zlib-devel
+%if 0%{?rhel}
+BuildRequires:                  cmake3
+%endif
 
 Requires:                       hicolor-icon-theme
 
@@ -116,8 +119,13 @@ find doc/ -type f -name 'CMakeLists.txt' \
   -DENABLE_ENCHANT=ON                         \
   -DENABLE_PYTHON3=ON                         \
   -DENABLE_PHP=OFF                            \
+%if 0%{?fedora} || 0%{?rhel} < 8
   -DENABLE_DOC=ON                             \
   -DENABLE_MAN=ON                             \
+%else
+  -DENABLE_DOC=OFF                            \
+  -DENABLE_MAN=OFF                            \
+%endif
   -DENABLE_JAVASCRIPT=OFF                     \
   -DCA_FILE=/etc/pki/tls/certs/ca-bundle.crt  \
   %{nil}
@@ -145,6 +153,7 @@ find doc/ -type f -name 'CMakeLists.txt' \
 %{_datadir}/icons/hicolor/256x256/apps/%{name}.png
 %{_datadir}/icons/hicolor/512x512/apps/%{name}.png
 %{_datadir}/icons/hicolor/64x64/apps/%{name}.png
+%if 0%{?fedora} || 0%{?rhel} < 8
 %{_pkgdocdir}/weechat_*.html
 %{_mandir}/man1/weechat.1*
 %{_mandir}/cs/man1/weechat.1*
@@ -156,6 +165,7 @@ find doc/ -type f -name 'CMakeLists.txt' \
 %{_mandir}/ru/man1/weechat.1*
 %{_mandir}/man1/%{name}-headless.1*
 %{_mandir}/*/man1/%{name}-headless.1*
+%endif
 
 
 %files devel
