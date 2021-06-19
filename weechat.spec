@@ -67,9 +67,6 @@ BuildRequires:                  v8-devel
 %endif
 %endif
 BuildRequires:                  zlib-devel
-%if 0%{?rhel}
-BuildRequires:                  cmake3
-%endif
 
 Requires:                       hicolor-icon-theme
 
@@ -119,13 +116,8 @@ find doc/ -type f -name 'CMakeLists.txt' \
   -DENABLE_ENCHANT=ON                         \
   -DENABLE_PYTHON3=ON                         \
   -DENABLE_PHP=OFF                            \
-%if 0%{?fedora} || 0%{?rhel} < 8
   -DENABLE_DOC=ON                             \
   -DENABLE_MAN=ON                             \
-%else
-  -DENABLE_DOC=OFF                            \
-  -DENABLE_MAN=OFF                            \
-%endif
   -DENABLE_JAVASCRIPT=OFF                     \
   -DCA_FILE=/etc/pki/tls/certs/ca-bundle.crt  \
   %{nil}
