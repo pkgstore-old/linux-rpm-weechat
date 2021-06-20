@@ -219,18 +219,18 @@ find doc/ -type f -name 'CMakeLists.txt' \
 * Wed Apr 1 2020 Paul Komkoff <i@stingr.net> - 2.8-1
 - Update to 2.8
 
-* Sun Mar 15 2020 Package Store <pkgstore@pm.me> - 2.7.1-101
+* Sun Mar 15 2020 Package Store <kitsune.solar@gmail.com> - 2.7.1-101
 - UPD: SPEC-file.
 - UPD: Only Fedora build.
 
-* Fri Mar 13 2020 Package Store <pkgstore@pm.me> - 2.7.1-100
+* Fri Mar 13 2020 Package Store <kitsune.solar@gmail.com> - 2.7.1-100
 - NEW: v2.7.1.
 - UPD: master-d1bbbb.
 
-* Thu Oct 03 2019 Package Store <pkgstore@pm.me> - 2.6-100
+* Thu Oct 03 2019 Package Store <kitsune.solar@gmail.com> - 2.6-100
 - NEW: v2.6.
 
-* Sat Jun 29 2019 Package Store <pkgstore@pm.me> - 2.5-100
+* Sat Jun 29 2019 Package Store <kitsune.solar@gmail.com> - 2.5-100
 - NEW: v2.5.
 - UPD: MARKETPLACE.
 
