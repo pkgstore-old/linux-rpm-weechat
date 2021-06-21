@@ -12,7 +12,27 @@ WeeChat is:
 - A free program released under the terms of the GNU General Public License version 3.
 - An active project with a large community for scripts.
 
-## How it works
+## Install
+
+### Fedora COPR
+
+```
+$ dnf copr enable pkgstore/weechat
+```
+
+### Open Build Service (OBS)
+
+```
+# Work in Progress
+```
+
+## Update
+
+```
+$ dnf upgrade -y weechat
+```
+
+## How to Build
 
 1. Get source from [src.fedoraproject.org](https://src.fedoraproject.org/rpms/weechat).
 2. Write last commit SHA from [src.fedoraproject.org](https://src.fedoraproject.org/rpms/weechat) to [CHANGELOG](CHANGELOG).
