@@ -18,6 +18,7 @@ WeeChat is:
 
 ```
 $ dnf copr enable pkgstore/weechat
+$ dnf install -y weechat
 ```
 
 ### Open Build Service (OBS)
