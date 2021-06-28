@@ -4,11 +4,10 @@
     <param name="url">https://github.com/pkgstore/linux-rpm-weechat.git</param>
     <param name="version">_none_</param>
     <param name="filename">weechat</param>
+    <param name="changesauthor">kitsune.solar@gmail.com</param>
     <param name="extract">*</param>
   </service>
-  <service name="tar" mode="buildtime">
-    <param name="file">weechat</param>
-  </service>
+  <service name="tar" mode="buildtime"/>
   <service name="recompress" mode="buildtime">
     <param name="compression">xz</param>
     <param name="file">*.tar</param>
