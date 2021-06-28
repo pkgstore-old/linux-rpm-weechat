@@ -2,6 +2,7 @@
   <service name="obs_scm">
     <param name="scm">git</param>
     <param name="url">https://github.com/pkgstore/linux-rpm-weechat.git</param>
+    <param name="revision">main</param>
     <param name="version">_none_</param>
     <param name="filename">weechat</param>
     <param name="changesauthor">kitsune.solar@gmail.com</param>
