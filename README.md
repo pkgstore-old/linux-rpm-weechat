@@ -33,6 +33,13 @@ $ dnf install -y weechat
 $ dnf upgrade -y weechat
 ```
 
+## Remove
+
+```
+$ dnf erase -y weechat
+$ dnf copr remove pkgstore/weechat
+```
+
 ## How to Build
 
 1. Get source from [src.fedoraproject.org](https://src.fedoraproject.org/rpms/weechat).
