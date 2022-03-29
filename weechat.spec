@@ -82,6 +82,7 @@ BuildRequires:                  ruby
 BuildRequires:                  ruby-devel
 BuildRequires:                  source-highlight
 BuildRequires:                  tcl-devel
+BuildRequires:                  libzstd
 %ifarch %{ix86} x86_64 %{arm}
 # https://bugzilla.redhat.com/show_bug.cgi?id=1338728
 # https://github.com/weechat/weechat/issues/360
