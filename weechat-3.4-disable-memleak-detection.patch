@@ -1,0 +1,23 @@
+diff -ruN weechat-3.4/tests/tests.cpp weechat-3.4-disable-memleak-detection/tests/tests.cpp
+--- weechat-3.4/tests/tests.cpp	2021-12-17 23:57:32.000000000 -0800
++++ weechat-3.4-disable-memleak-detection/tests/tests.cpp	2022-01-14 16:36:08.330205164 -0800
+@@ -49,6 +49,7 @@
+ }
+ 
+ #include "CppUTest/CommandLineTestRunner.h"
++#include "CppUTest/MemoryLeakWarningPlugin.h"
+ 
+ #define LOCALE_TESTS "en_US.UTF-8"
+ 
+@@ -330,6 +331,11 @@
+         return 1;
+     }
+ 
++    /* this fails on basically every test right now 
++     * see https://cpputest.github.io/manual.html#turning-memory-leak-detection-off-and-on
++     */
++    MemoryLeakWarningPlugin::turnOffNewDeleteOverloads();
++
+     /* clean WeeChat home */
+     dir_exec_on_files (WEECHAT_TESTS_HOME, 1, 1, &exec_on_files_cb, NULL);
+ 

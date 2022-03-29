@@ -1,0 +1,12 @@
+diff -ruN weechat-3.4/tests/CMakeLists.txt weechat-3.4-tests-fPIC/tests/CMakeLists.txt
+--- weechat-3.4/tests/CMakeLists.txt	2021-12-17 23:57:32.000000000 -0800
++++ weechat-3.4-tests-fPIC/tests/CMakeLists.txt	2022-01-14 15:34:23.072801796 -0800
+@@ -22,6 +22,8 @@
+ remove_definitions(-DHAVE_CONFIG_H)
+ include_directories(${CPPUTEST_INCLUDE_DIRS} ${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR})
+ 
++set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
++
+ # unit tests (core)
+ set(LIB_WEECHAT_UNIT_TESTS_CORE_SRC
+   unit/core/test-core-arraylist.cpp

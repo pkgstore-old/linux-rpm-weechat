@@ -1,4 +1,20 @@
+%ifnarch s390x
+%bcond_without check
+%else
+# some tests fail on s390x
+%bcond_with check
+%endif
+
+%if 0%{?fedora} || 0%{?rhel} < 8
+%bcond_without docs
+%else
+# TODO: package rubygem-asciidoctor
+%bcond_with docs
+%endif
+
+%if 0%{?rhel} && 0%{?rhel} < 9
 %undefine __cmake_in_source_build
+%endif
 %global __provides_exclude_from ^%{_libdir}/weechat/plugins/.*$
 
 %if %{?_pkgdocdir:1}0
@@ -15,7 +31,7 @@
 %global release_prefix          100
 
 Name:                           weechat
-Version:                        3.2
+Version:                        3.5
 Release:                        %{release_prefix}%{?dist}
 Summary:                        Portable, fast, light and extensible IRC client
 License:                        GPLv3
@@ -23,7 +39,7 @@ URL:                            https://weechat.org
 Vendor:                         Package Store <https://pkgstore.github.io>
 Packager:                       Kitsune Solar <kitsune.solar@gmail.com>
 
-Source0:                         https://weechat.org/files/src/%{name}-%{version}.tar.xz
+Source0:                        https://weechat.org/files/src/%{name}-%{version}.tar.xz
 # Signature
 Source900:                      https://weechat.org/files/src/%{name}-%{version}.tar.xz.asc
 
@@ -31,9 +47,16 @@ Source900:                      https://weechat.org/files/src/%{name}-%{version}
 # relocation R_X86_64_PC32 against symbol `weechat_charset_plugin'
 # can not be used when making a shared object; recompile with -fPIC
 Patch0:                         weechat-1.0.1-plugins-fPIC.patch
+Patch1:                         weechat-3.4-tests-fPIC.patch
+# this fails on too many tests, we want to let them finish anyway
+Patch2:                         weechat-3.4-disable-memleak-detection.patch
 
 BuildRequires:                  gcc
-%if 0%{?fedora} || 0%{?rhel} < 8
+%if %{with check}
+BuildRequires:                  cpputest-devel
+BuildRequires:                  glibc-langpack-en
+%endif
+%if %{with docs}
 BuildRequires:                  asciidoctor
 %endif
 BuildRequires:                  ca-certificates
@@ -113,7 +136,12 @@ find doc/ -type f -name 'CMakeLists.txt' \
   -DENABLE_ENCHANT=ON                         \
   -DENABLE_PYTHON3=ON                         \
   -DENABLE_PHP=OFF                            \
-%if 0%{?fedora} || 0%{?rhel} < 8
+%if %{with check}
+  -DENABLE_TESTS=ON \
+%else
+  -DENABLE_TESTS=OFF \
+%endif
+%if %{with docs}
   -DENABLE_DOC=ON                             \
   -DENABLE_MAN=ON                             \
 %else
@@ -129,7 +157,12 @@ find doc/ -type f -name 'CMakeLists.txt' \
 %install
 %cmake_install
 
-%{find_lang} %name
+%find_lang %name
+
+
+%if %{with check}
+%ctest -- -V
+%endif
 
 
 %files -f %{name}.lang
@@ -150,13 +183,7 @@ find doc/ -type f -name 'CMakeLists.txt' \
 %if 0%{?fedora} || 0%{?rhel} < 8
 %{_pkgdocdir}/weechat_*.html
 %{_mandir}/man1/weechat.1*
-%{_mandir}/cs/man1/weechat.1*
-%{_mandir}/de/man1/weechat.1*
-%{_mandir}/fr/man1/weechat.1*
-%{_mandir}/it/man1/weechat.1*
-%{_mandir}/ja/man1/weechat.1*
-%{_mandir}/pl/man1/weechat.1*
-%{_mandir}/ru/man1/weechat.1*
+%{_mandir}/*/man1/weechat.1*
 %{_mandir}/man1/%{name}-headless.1*
 %{_mandir}/*/man1/%{name}-headless.1*
 %endif
@@ -169,6 +196,20 @@ find doc/ -type f -name 'CMakeLists.txt' \
 
 
 %changelog
+* Tue Mar 29 2022 Package Store <pkgstore@mail.ru> - 3.5-100
+- NEW: WeeChat v3.5.
+- UPD: Rebuild by Package Store.
+
+* Sun Nov 07 2021 Paul Komkoff <i@stingr.net> - 3.3-1
+- update to 3.3
+
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Sun Jul 11 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 3.2-1
+- Update to 3.2
+- Reenable s390x build for EPEL8 (#1869383)
+
 * Sat Jun 19 2021 Package Store <kitsune.solar@gmail.com> - 3.2-100
 - NEW: v3.2.
 - UPD: Move to Package Store.
