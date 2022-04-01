@@ -28,7 +28,7 @@
 %global _pkgdocdir              %{_docdir}/%{_doc}
 %endif
 
-%global release_prefix          100
+%global release_prefix          1000
 
 Name:                           weechat
 Version:                        3.5
@@ -36,12 +36,8 @@ Release:                        %{release_prefix}%{?dist}
 Summary:                        Portable, fast, light and extensible IRC client
 License:                        GPLv3
 URL:                            https://weechat.org
-Vendor:                         Package Store <https://pkgstore.github.io>
-Packager:                       Kitsune Solar <kitsune.solar@gmail.com>
 
-Source0:                        https://weechat.org/files/src/%{name}-%{version}.tar.xz
-# Signature
-Source900:                      https://weechat.org/files/src/%{name}-%{version}.tar.xz.asc
+Source0:                        %{name}-%{version}.tar.xz
 
 # /usr/bin/ld: CMakeFiles/charset.dir/charset.o:
 # relocation R_X86_64_PC32 against symbol `weechat_charset_plugin'
@@ -131,7 +127,7 @@ find doc/ -type f -name 'CMakeLists.txt' \
 
 
 %build
-%cmake3                                       \
+%{cmake3}                                     \
   -DPREFIX=%{_prefix}                         \
   -DLIBDIR=%{_libdir}                         \
   -DENABLE_ENCHANT=ON                         \
@@ -152,13 +148,13 @@ find doc/ -type f -name 'CMakeLists.txt' \
   -DENABLE_JAVASCRIPT=OFF                     \
   -DCA_FILE=/etc/pki/tls/certs/ca-bundle.crt  \
   %{nil}
-%cmake_build
+%{cmake_build}
 
 
 %install
-%cmake_install
+%{cmake_install}
 
-%find_lang %name
+%find_lang %{name}
 
 
 %if %{with check}
@@ -197,6 +193,10 @@ find doc/ -type f -name 'CMakeLists.txt' \
 
 
 %changelog
+* Fri Apr 01 2022 Package Store <pkgstore@mail.ru> - 3.5-1000
+- UPD: Rebuild by Package Store.
+- UPD: File "weechat.spec".
+
 * Tue Mar 29 2022 Package Store <pkgstore@mail.ru> - 3.5-100
 - NEW: WeeChat v3.5.
 - UPD: Rebuild by Package Store.
